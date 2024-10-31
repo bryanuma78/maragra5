@@ -2268,3 +2268,22 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   font-size: 14px;
 }
+/*------------------imagenes collage-------------------*/
+.collage-container {
+  display: grid;
+  gap: 10px; /* Espacio entre las imágenes */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: 200px; /* Altura de cada imagen */
+}
+
+.collage-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px; /* Bordes redondeados */
+  transition: transform 0.3s ease; /* Efecto de hover */
+}
+
+.collage-container img:hover {
+  transform: scale(1.05); /* Zoom suave en hover */
+}
