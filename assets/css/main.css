@@ -2287,3 +2287,70 @@ section,
 .collage-container img:hover {
   transform: scale(1.05); /* Zoom suave en hover */
 }
+
+/* Contenedor de toda la barra y la leyenda */
+.status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Barra de estado */
+.status-bar {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+/* Indicadores de colores */
+.indicator {
+  position: absolute;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.indicator.realizado {
+  background-color: #4CAF50; /* Verde claro */
+  left: 0%; /* Posición inicial */
+}
+
+.indicator.por-realizar {
+  background-color: #2196F3; /* Azul claro */
+  right: 0%; /* Posición final */
+}
+
+/* Leyenda de los indicadores */
+.legend {
+  display: flex;
+  gap: 15px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.legend-item.realizado::before,
+.legend-item.por-realizar::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-item.realizado::before {
+  background-color: #4CAF50; /* Verde claro */
+}
+
+.legend-item.por-realizar::before {
+  background-color: #2196F3; /* Azul claro */
+}
