@@ -6,7 +6,7 @@
 * License: https://bootstrapmade.com/license/
 */
 
-(function() {
+(function () {
   "use strict";
 
   /**
@@ -26,7 +26,7 @@
    * Scroll up sticky header to headers with .scroll-up-sticky class
    */
   let lastScrollTop = 0;
-  window.addEventListener('scroll', function() {
+  window.addEventListener('scroll', function () {
     const selectHeader = document.querySelector('#header');
     if (!selectHeader.classList.contains('scroll-up-sticky')) return;
 
@@ -34,7 +34,7 @@
 
     if (scrollTop > lastScrollTop && scrollTop > selectHeader.offsetHeight) {
       selectHeader.style.setProperty('position', 'sticky', 'important');
-      selectHeader.style.top = `-${header.offsetHeight + 50}px`;
+      selectHeader.style.top = `-${selectHeader.offsetHeight + 50}px`;
     } else if (scrollTop > selectHeader.offsetHeight) {
       selectHeader.style.setProperty('position', 'sticky', 'important');
       selectHeader.style.top = "0";
@@ -55,6 +55,7 @@
     mobileNavToggleBtn.classList.toggle('bi-list');
     mobileNavToggleBtn.classList.toggle('bi-x');
   }
+
   mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
 
   /**
@@ -66,14 +67,13 @@
         mobileNavToogle();
       }
     });
-
   });
 
   /**
    * Toggle mobile nav dropdowns
    */
   document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-    navmenu.addEventListener('click', function(e) {
+    navmenu.addEventListener('click', function (e) {
       e.preventDefault();
       this.parentNode.classList.toggle('active');
       this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
@@ -101,6 +101,7 @@
       window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
     }
   }
+
   scrollTop.addEventListener('click', (e) => {
     e.preventDefault();
     window.scrollTo({
@@ -123,6 +124,7 @@
       mirror: false
     });
   }
+
   window.addEventListener('load', aosInit);
 
   /**
@@ -142,7 +144,7 @@
    * Init swiper sliders
    */
   function initSwiper() {
-    document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
+    document.querySelectorAll(".init-swiper").forEach(function (swiperElement) {
       let config = JSON.parse(
         swiperElement.querySelector(".swiper-config").innerHTML.trim()
       );
@@ -162,6 +164,66 @@
    */
   const glightbox = GLightbox({
     selector: '.glightbox'
+  });
+
+  /**
+   * Imagen ampliada estilo galería con navegación
+   */
+  const popupOverlay = document.createElement('div');
+  popupOverlay.className = 'overlay';
+  popupOverlay.id = 'overlay';
+  popupOverlay.innerHTML = `
+    <div id="prev-arrow" class="nav-arrow">&#10094;</div>
+    <img id="popup-img" class="popup-img" src="" alt="Imagen ampliada">
+    <div id="next-arrow" class="nav-arrow">&#10095;</div>
+  `;
+  document.body.appendChild(popupOverlay);
+
+  const popupImg = document.getElementById("popup-img");
+  const images = Array.from(document.querySelectorAll(".collage-container img"));
+  let currentIndex = 0;
+
+  function showImage(index) {
+    currentIndex = index;
+    popupImg.src = images[index].src;
+    popupOverlay.style.display = "flex";
+  }
+
+  images.forEach((img, index) => {
+    img.style.cursor = "pointer";
+    img.addEventListener("click", () => {
+      showImage(index);
+    });
+  });
+
+  document.getElementById("next-arrow").addEventListener("click", (e) => {
+    e.stopPropagation();
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  });
+
+  document.getElementById("prev-arrow").addEventListener("click", (e) => {
+    e.stopPropagation();
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+  });
+
+  popupOverlay.addEventListener("click", () => {
+    popupOverlay.style.display = "none";
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (popupOverlay.style.display === "flex") {
+      if (e.key === "ArrowRight") {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage(currentIndex);
+      } else if (e.key === "ArrowLeft") {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage(currentIndex);
+      } else if (e.key === "Escape") {
+        popupOverlay.style.display = "none";
+      }
+    }
   });
 
 })();

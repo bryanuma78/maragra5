@@ -2354,3 +2354,56 @@ section,
 .legend-item.por-realizar::before {
   background-color: #2196F3; /* Azul claro */
 }
+
+
+
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  color: white;
+  background-color: rgba(0,0,0,0.3);
+  padding: 10px 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10000;
+  user-select: none;
+}
+
+.nav-arrow:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+#prev-arrow {
+  left: 20px;
+}
+
+#next-arrow {
+  right: 20px;
+}
